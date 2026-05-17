@@ -1,0 +1,1645 @@
+{
+  "config_name": "small-vector-gpt5.4_reranker",
+  "timestamp": "2026-05-17T13:21:29.218000+00:00",
+  "host": "http://localhost:8000",
+  "trace_results": [
+    {
+      "trace_id": "C1",
+      "expected_assessments": [
+        "Occupational Personality Questionnaire OPQ32r",
+        "OPQ Universal Competency Report 2.0",
+        "OPQ Leadership Report"
+      ],
+      "turn_results": [
+        {
+          "turn_number": 1,
+          "user_message": "We need a solution for senior leadership.",
+          "agent_reply": "Are you selecting for a senior leadership hire, or is this for development/onboa...",
+          "recommendations": [],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 6504.1
+        },
+        {
+          "turn_number": 2,
+          "user_message": "The pool consists of CXOs, director-level postions; people w...",
+          "agent_reply": "For CXO and director-level senior leadership selection, I’d recommend this core ...",
+          "recommendations": [
+            {
+              "name": "Occupational Personality Questionnaire OPQ32r",
+              "url": "https://www.shl.com/products/product-catalog/view/occupational-personality-questionnaire-opq32r/",
+              "test_type": "P"
+            },
+            {
+              "name": "OPQ Universal Competency Report 2.0",
+              "url": "https://www.shl.com/products/product-catalog/view/opq-universal-competency-report-2-0/",
+              "test_type": "P"
+            },
+            {
+              "name": "OPQ Leadership Report",
+              "url": "https://www.shl.com/products/product-catalog/view/opq-leadership-report/",
+              "test_type": "P"
+            }
+          ],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 6987.1
+        },
+        {
+          "turn_number": 3,
+          "user_message": "Selection — comparing candidates against a leadership benchm...",
+          "agent_reply": "For selection of CXO and director-level candidates against a leadership benchmar...",
+          "recommendations": [
+            {
+              "name": "Occupational Personality Questionnaire OPQ32r",
+              "url": "https://www.shl.com/products/product-catalog/view/occupational-personality-questionnaire-opq32r/",
+              "test_type": "P"
+            },
+            {
+              "name": "OPQ Universal Competency Report 2.0",
+              "url": "https://www.shl.com/products/product-catalog/view/opq-universal-competency-report-2-0/",
+              "test_type": "P"
+            },
+            {
+              "name": "OPQ Leadership Report",
+              "url": "https://www.shl.com/products/product-catalog/view/opq-leadership-report/",
+              "test_type": "P"
+            }
+          ],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 5478.8
+        },
+        {
+          "turn_number": 4,
+          "user_message": "Perfect, that's what we need.",
+          "agent_reply": "Great — here is the confirmed shortlist for CXO/director-level selection against...",
+          "recommendations": [
+            {
+              "name": "Occupational Personality Questionnaire OPQ32r",
+              "url": "https://www.shl.com/products/product-catalog/view/occupational-personality-questionnaire-opq32r/",
+              "test_type": "P"
+            },
+            {
+              "name": "OPQ Universal Competency Report 2.0",
+              "url": "https://www.shl.com/products/product-catalog/view/opq-universal-competency-report-2-0/",
+              "test_type": "P"
+            },
+            {
+              "name": "OPQ Leadership Report",
+              "url": "https://www.shl.com/products/product-catalog/view/opq-leadership-report/",
+              "test_type": "P"
+            }
+          ],
+          "end_of_conversation": true,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 5688.1
+        }
+      ],
+      "final_recommendations": [
+        {
+          "name": "Occupational Personality Questionnaire OPQ32r",
+          "url": "https://www.shl.com/products/product-catalog/view/occupational-personality-questionnaire-opq32r/",
+          "test_type": "P"
+        },
+        {
+          "name": "OPQ Universal Competency Report 2.0",
+          "url": "https://www.shl.com/products/product-catalog/view/opq-universal-competency-report-2-0/",
+          "test_type": "P"
+        },
+        {
+          "name": "OPQ Leadership Report",
+          "url": "https://www.shl.com/products/product-catalog/view/opq-leadership-report/",
+          "test_type": "P"
+        }
+      ],
+      "recall_at_10": 1.0,
+      "schema_passed": true,
+      "turns_used": 4,
+      "early_close": false,
+      "error": ""
+    },
+    {
+      "trace_id": "C10",
+      "expected_assessments": [
+        "SHL Verify Interactive G+",
+        "Graduate Scenarios"
+      ],
+      "turn_results": [
+        {
+          "turn_number": 1,
+          "user_message": "We run a graduate management trainee scheme. We need a full ...",
+          "agent_reply": "I can help with the SHL assessments in this catalog, but I should note a gap: I ...",
+          "recommendations": [
+            {
+              "name": "Graduate Scenarios",
+              "url": "https://www.shl.com/products/product-catalog/view/graduate-scenarios/",
+              "test_type": "B"
+            },
+            {
+              "name": "Occupational Personality Questionnaire OPQ32r",
+              "url": "https://www.shl.com/products/product-catalog/view/occupational-personality-questionnaire-opq32r/",
+              "test_type": "P"
+            },
+            {
+              "name": "OPQ Universal Competency Report 2.0",
+              "url": "https://www.shl.com/products/product-catalog/view/opq-universal-competency-report-2-0/",
+              "test_type": "P"
+            },
+            {
+              "name": "OPQ Manager Plus Report 2.0",
+              "url": "https://www.shl.com/products/product-catalog/view/opq-manager-plus-report-2-0/",
+              "test_type": "P"
+            },
+            {
+              "name": "OPQ Candidate Plus Report",
+              "url": "https://www.shl.com/products/product-catalog/view/opq-candidate-plus-report/",
+              "test_type": "P"
+            }
+          ],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 7822.6
+        },
+        {
+          "turn_number": 2,
+          "user_message": "But can you remove the OPQ32r and replace it with something ...",
+          "agent_reply": "I can remove Occupational Personality Questionnaire OPQ32r, but I can’t replace ...",
+          "recommendations": [
+            {
+              "name": "Graduate Scenarios",
+              "url": "https://www.shl.com/products/product-catalog/view/graduate-scenarios/",
+              "test_type": "B"
+            },
+            {
+              "name": "OPQ Universal Competency Report 2.0",
+              "url": "https://www.shl.com/products/product-catalog/view/opq-universal-competency-report-2-0/",
+              "test_type": "P"
+            },
+            {
+              "name": "OPQ Manager Plus Report 2.0",
+              "url": "https://www.shl.com/products/product-catalog/view/opq-manager-plus-report-2-0/",
+              "test_type": "P"
+            },
+            {
+              "name": "OPQ Candidate Plus Report",
+              "url": "https://www.shl.com/products/product-catalog/view/opq-candidate-plus-report/",
+              "test_type": "P"
+            }
+          ],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 7115.9
+        },
+        {
+          "turn_number": 3,
+          "user_message": "Drop the OPQ. Final list: Verify G+ and Graduate Scenarios.",
+          "agent_reply": "Confirmed. Here is the complete final shortlist unchanged....",
+          "recommendations": [
+            {
+              "name": "Graduate Scenarios",
+              "url": "https://www.shl.com/products/product-catalog/view/graduate-scenarios/",
+              "test_type": "B"
+            },
+            {
+              "name": "OPQ Universal Competency Report 2.0",
+              "url": "https://www.shl.com/products/product-catalog/view/opq-universal-competency-report-2-0/",
+              "test_type": "P"
+            },
+            {
+              "name": "OPQ Manager Plus Report 2.0",
+              "url": "https://www.shl.com/products/product-catalog/view/opq-manager-plus-report-2-0/",
+              "test_type": "P"
+            },
+            {
+              "name": "OPQ Candidate Plus Report",
+              "url": "https://www.shl.com/products/product-catalog/view/opq-candidate-plus-report/",
+              "test_type": "P"
+            }
+          ],
+          "end_of_conversation": true,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 5464.9
+        }
+      ],
+      "final_recommendations": [
+        {
+          "name": "Graduate Scenarios",
+          "url": "https://www.shl.com/products/product-catalog/view/graduate-scenarios/",
+          "test_type": "B"
+        },
+        {
+          "name": "OPQ Universal Competency Report 2.0",
+          "url": "https://www.shl.com/products/product-catalog/view/opq-universal-competency-report-2-0/",
+          "test_type": "P"
+        },
+        {
+          "name": "OPQ Manager Plus Report 2.0",
+          "url": "https://www.shl.com/products/product-catalog/view/opq-manager-plus-report-2-0/",
+          "test_type": "P"
+        },
+        {
+          "name": "OPQ Candidate Plus Report",
+          "url": "https://www.shl.com/products/product-catalog/view/opq-candidate-plus-report/",
+          "test_type": "P"
+        }
+      ],
+      "recall_at_10": 0.5,
+      "schema_passed": true,
+      "turns_used": 3,
+      "early_close": false,
+      "error": ""
+    },
+    {
+      "trace_id": "C2",
+      "expected_assessments": [
+        "Smart Interview Live Coding",
+        "Linux Programming (General)",
+        "Networking and Implementation (New)",
+        "SHL Verify Interactive G+",
+        "Occupational Personality Questionnaire OPQ32r"
+      ],
+      "turn_results": [
+        {
+          "turn_number": 1,
+          "user_message": "I'm hiring a senior Rust engineer for high-performance netwo...",
+          "agent_reply": "I don’t see a Rust-specific assessment in the provided catalog. For a senior eng...",
+          "recommendations": [
+            {
+              "name": "Automata Pro (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/automata-pro-new/",
+              "test_type": "S"
+            },
+            {
+              "name": "Networking and Implementation (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/networking-and-implementation-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Kubernetes (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/kubernetes-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Jenkins (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/jenkins-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Linux Programming (General)",
+              "url": "https://www.shl.com/products/product-catalog/view/linux-programming-general/",
+              "test_type": "K"
+            }
+          ],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 6828.7
+        },
+        {
+          "turn_number": 2,
+          "user_message": "Yes, go ahead. Should I also add a cognitive test for this l...",
+          "agent_reply": "Yes—adding a cognitive test is reasonable for a senior Rust engineer role, espec...",
+          "recommendations": [
+            {
+              "name": "Automata Pro (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/automata-pro-new/",
+              "test_type": "S"
+            },
+            {
+              "name": "Networking and Implementation (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/networking-and-implementation-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Kubernetes (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/kubernetes-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Jenkins (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/jenkins-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Linux Programming (General)",
+              "url": "https://www.shl.com/products/product-catalog/view/linux-programming-general/",
+              "test_type": "K"
+            },
+            {
+              "name": "Verify - G+",
+              "url": "https://www.shl.com/products/product-catalog/view/verify-g/",
+              "test_type": "A"
+            }
+          ],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 7609.3
+        },
+        {
+          "turn_number": 3,
+          "user_message": "That works. Thanks.",
+          "agent_reply": "Great — here is the confirmed final shortlist unchanged....",
+          "recommendations": [
+            {
+              "name": "Automata Pro (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/automata-pro-new/",
+              "test_type": "S"
+            },
+            {
+              "name": "Networking and Implementation (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/networking-and-implementation-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Kubernetes (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/kubernetes-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Jenkins (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/jenkins-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Linux Programming (General)",
+              "url": "https://www.shl.com/products/product-catalog/view/linux-programming-general/",
+              "test_type": "K"
+            },
+            {
+              "name": "Verify - G+",
+              "url": "https://www.shl.com/products/product-catalog/view/verify-g/",
+              "test_type": "A"
+            }
+          ],
+          "end_of_conversation": true,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 6315.6
+        }
+      ],
+      "final_recommendations": [
+        {
+          "name": "Automata Pro (New)",
+          "url": "https://www.shl.com/products/product-catalog/view/automata-pro-new/",
+          "test_type": "S"
+        },
+        {
+          "name": "Networking and Implementation (New)",
+          "url": "https://www.shl.com/products/product-catalog/view/networking-and-implementation-new/",
+          "test_type": "K"
+        },
+        {
+          "name": "Kubernetes (New)",
+          "url": "https://www.shl.com/products/product-catalog/view/kubernetes-new/",
+          "test_type": "K"
+        },
+        {
+          "name": "Jenkins (New)",
+          "url": "https://www.shl.com/products/product-catalog/view/jenkins-new/",
+          "test_type": "K"
+        },
+        {
+          "name": "Linux Programming (General)",
+          "url": "https://www.shl.com/products/product-catalog/view/linux-programming-general/",
+          "test_type": "K"
+        },
+        {
+          "name": "Verify - G+",
+          "url": "https://www.shl.com/products/product-catalog/view/verify-g/",
+          "test_type": "A"
+        }
+      ],
+      "recall_at_10": 0.4,
+      "schema_passed": true,
+      "turns_used": 3,
+      "early_close": false,
+      "error": ""
+    },
+    {
+      "trace_id": "C3",
+      "expected_assessments": [
+        "SVAR Spoken English (US) (New)",
+        "Contact Center Call Simulation (New)",
+        "Entry Level Customer Serv - Retail & Contact Center",
+        "Customer Service Phone Simulation"
+      ],
+      "turn_results": [
+        {
+          "turn_number": 1,
+          "user_message": "We're screening 500 entry-level contact centre agents. Inbou...",
+          "agent_reply": "For 500 entry-level inbound contact centre agents with a customer service focus,...",
+          "recommendations": [
+            {
+              "name": "Customer Service Phone Solution",
+              "url": "https://www.shl.com/products/product-catalog/view/customer-service-phone-solution/",
+              "test_type": "B,P,S"
+            },
+            {
+              "name": "Customer Service Phone Simulation",
+              "url": "https://www.shl.com/products/product-catalog/view/customer-service-phone-simulation/",
+              "test_type": "B,S"
+            },
+            {
+              "name": "Entry Level Customer Serv-Retail & Contact Center",
+              "url": "https://www.shl.com/products/product-catalog/view/entry-level-customer-serv-retail-and-contact-center/",
+              "test_type": "P,C"
+            },
+            {
+              "name": "Contact Center Call Simulation (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/contact-center-call-simulation-new/",
+              "test_type": "S"
+            }
+          ],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 9578.2
+        },
+        {
+          "turn_number": 2,
+          "user_message": "English.",
+          "agent_reply": "All four shortlisted options support English for your use case. Here is the full...",
+          "recommendations": [
+            {
+              "name": "Customer Service Phone Solution",
+              "url": "https://www.shl.com/products/product-catalog/view/customer-service-phone-solution/",
+              "test_type": "B,P,S"
+            },
+            {
+              "name": "Customer Service Phone Simulation",
+              "url": "https://www.shl.com/products/product-catalog/view/customer-service-phone-simulation/",
+              "test_type": "B,S"
+            },
+            {
+              "name": "Entry Level Customer Serv-Retail & Contact Center",
+              "url": "https://www.shl.com/products/product-catalog/view/entry-level-customer-serv-retail-and-contact-center/",
+              "test_type": "P,C"
+            },
+            {
+              "name": "Contact Center Call Simulation (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/contact-center-call-simulation-new/",
+              "test_type": "S"
+            }
+          ],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 6166.4
+        },
+        {
+          "turn_number": 3,
+          "user_message": "US.",
+          "agent_reply": "All four shortlisted options work for English (USA). For high-volume screening o...",
+          "recommendations": [
+            {
+              "name": "Customer Service Phone Solution",
+              "url": "https://www.shl.com/products/product-catalog/view/customer-service-phone-solution/",
+              "test_type": "B,P,S"
+            },
+            {
+              "name": "Customer Service Phone Simulation",
+              "url": "https://www.shl.com/products/product-catalog/view/customer-service-phone-simulation/",
+              "test_type": "B,S"
+            },
+            {
+              "name": "Entry Level Customer Serv-Retail & Contact Center",
+              "url": "https://www.shl.com/products/product-catalog/view/entry-level-customer-serv-retail-and-contact-center/",
+              "test_type": "P,C"
+            },
+            {
+              "name": "Contact Center Call Simulation (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/contact-center-call-simulation-new/",
+              "test_type": "S"
+            }
+          ],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 7268.3
+        },
+        {
+          "turn_number": 4,
+          "user_message": "Is the Contact Center Call Simulation different from the Cus...",
+          "agent_reply": "Yes. Based on the catalog, these two simulations differ in scope, duration, lang...",
+          "recommendations": [
+            {
+              "name": "Customer Service Phone Solution",
+              "url": "https://www.shl.com/products/product-catalog/view/customer-service-phone-solution/",
+              "test_type": "B,P,S"
+            },
+            {
+              "name": "Customer Service Phone Simulation",
+              "url": "https://www.shl.com/products/product-catalog/view/customer-service-phone-simulation/",
+              "test_type": "B,S"
+            },
+            {
+              "name": "Entry Level Customer Serv-Retail & Contact Center",
+              "url": "https://www.shl.com/products/product-catalog/view/entry-level-customer-serv-retail-and-contact-center/",
+              "test_type": "P,C"
+            },
+            {
+              "name": "Contact Center Call Simulation (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/contact-center-call-simulation-new/",
+              "test_type": "S"
+            }
+          ],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 10559.0
+        }
+      ],
+      "final_recommendations": [
+        {
+          "name": "Customer Service Phone Solution",
+          "url": "https://www.shl.com/products/product-catalog/view/customer-service-phone-solution/",
+          "test_type": "B,P,S"
+        },
+        {
+          "name": "Customer Service Phone Simulation",
+          "url": "https://www.shl.com/products/product-catalog/view/customer-service-phone-simulation/",
+          "test_type": "B,S"
+        },
+        {
+          "name": "Entry Level Customer Serv-Retail & Contact Center",
+          "url": "https://www.shl.com/products/product-catalog/view/entry-level-customer-serv-retail-and-contact-center/",
+          "test_type": "P,C"
+        },
+        {
+          "name": "Contact Center Call Simulation (New)",
+          "url": "https://www.shl.com/products/product-catalog/view/contact-center-call-simulation-new/",
+          "test_type": "S"
+        }
+      ],
+      "recall_at_10": 0.75,
+      "schema_passed": true,
+      "turns_used": 4,
+      "early_close": false,
+      "error": "Turn cap reached (8 messages) before turn 5"
+    },
+    {
+      "trace_id": "C4",
+      "expected_assessments": [
+        "SHL Verify Interactive – Numerical Reasoning",
+        "Financial Accounting (New)",
+        "Basic Statistics (New)",
+        "Graduate Scenarios",
+        "Occupational Personality Questionnaire OPQ32r"
+      ],
+      "turn_results": [
+        {
+          "turn_number": 1,
+          "user_message": "Hiring graduate financial analysts — final-year students, no...",
+          "agent_reply": "For graduate financial analyst hiring with final-year students and no work exper...",
+          "recommendations": [
+            {
+              "name": "Verify - Numerical Ability",
+              "url": "https://www.shl.com/products/product-catalog/view/verify-numerical-ability/",
+              "test_type": "A"
+            },
+            {
+              "name": "SHL Verify Interactive – Numerical Reasoning",
+              "url": "https://www.shl.com/products/product-catalog/view/shl-verify-interactive-numerical-reasoning/",
+              "test_type": "A,S"
+            },
+            {
+              "name": "Financial and Banking Services (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/financial-and-banking-services-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Financial Accounting (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/financial-accounting-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Graduate Scenarios",
+              "url": "https://www.shl.com/products/product-catalog/view/graduate-scenarios/",
+              "test_type": "B"
+            }
+          ],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 6377.7
+        },
+        {
+          "turn_number": 2,
+          "user_message": "Good. Can you also add a situational judgement element — wor...",
+          "agent_reply": "Added a graduate-focused situational judgement option for work-context decision ...",
+          "recommendations": [
+            {
+              "name": "Verify - Numerical Ability",
+              "url": "https://www.shl.com/products/product-catalog/view/verify-numerical-ability/",
+              "test_type": "A"
+            },
+            {
+              "name": "SHL Verify Interactive – Numerical Reasoning",
+              "url": "https://www.shl.com/products/product-catalog/view/shl-verify-interactive-numerical-reasoning/",
+              "test_type": "A,S"
+            },
+            {
+              "name": "Financial and Banking Services (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/financial-and-banking-services-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Financial Accounting (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/financial-accounting-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Graduate Scenarios",
+              "url": "https://www.shl.com/products/product-catalog/view/graduate-scenarios/",
+              "test_type": "B"
+            }
+          ],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 7134.1
+        },
+        {
+          "turn_number": 3,
+          "user_message": "That covers it. Numerical + Graduate Scenarios as first filt...",
+          "agent_reply": "Confirmed. Here is the final shortlist unchanged....",
+          "recommendations": [
+            {
+              "name": "Verify - Numerical Ability",
+              "url": "https://www.shl.com/products/product-catalog/view/verify-numerical-ability/",
+              "test_type": "A"
+            },
+            {
+              "name": "SHL Verify Interactive – Numerical Reasoning",
+              "url": "https://www.shl.com/products/product-catalog/view/shl-verify-interactive-numerical-reasoning/",
+              "test_type": "A,S"
+            },
+            {
+              "name": "Financial and Banking Services (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/financial-and-banking-services-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Financial Accounting (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/financial-accounting-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Graduate Scenarios",
+              "url": "https://www.shl.com/products/product-catalog/view/graduate-scenarios/",
+              "test_type": "B"
+            }
+          ],
+          "end_of_conversation": true,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 7249.2
+        }
+      ],
+      "final_recommendations": [
+        {
+          "name": "Verify - Numerical Ability",
+          "url": "https://www.shl.com/products/product-catalog/view/verify-numerical-ability/",
+          "test_type": "A"
+        },
+        {
+          "name": "SHL Verify Interactive – Numerical Reasoning",
+          "url": "https://www.shl.com/products/product-catalog/view/shl-verify-interactive-numerical-reasoning/",
+          "test_type": "A,S"
+        },
+        {
+          "name": "Financial and Banking Services (New)",
+          "url": "https://www.shl.com/products/product-catalog/view/financial-and-banking-services-new/",
+          "test_type": "K"
+        },
+        {
+          "name": "Financial Accounting (New)",
+          "url": "https://www.shl.com/products/product-catalog/view/financial-accounting-new/",
+          "test_type": "K"
+        },
+        {
+          "name": "Graduate Scenarios",
+          "url": "https://www.shl.com/products/product-catalog/view/graduate-scenarios/",
+          "test_type": "B"
+        }
+      ],
+      "recall_at_10": 0.6,
+      "schema_passed": true,
+      "turns_used": 3,
+      "early_close": false,
+      "error": ""
+    },
+    {
+      "trace_id": "C5",
+      "expected_assessments": [
+        "Global Skills Assessment",
+        "Global Skills Development Report",
+        "Occupational Personality Questionnaire OPQ32r",
+        "OPQ MQ Sales Report",
+        "Sales Transformation 2.0 - Individual Contributor"
+      ],
+      "turn_results": [
+        {
+          "turn_number": 1,
+          "user_message": "As part of our restructuring and annual talent audit, we nee...",
+          "agent_reply": "For re-skilling a Sales organization as part of a talent audit, I’d focus on sol...",
+          "recommendations": [
+            {
+              "name": "Sales Transformation 2.0 - Individual Contributor",
+              "url": "https://www.shl.com/products/product-catalog/view/salestransformationreport2-0-individualcontributor/",
+              "test_type": "P"
+            },
+            {
+              "name": "Sales Transformation Report 2.0 - Sales Manager",
+              "url": "https://www.shl.com/products/product-catalog/view/sales-transformation-report-2-0-sales-manager/",
+              "test_type": "P"
+            },
+            {
+              "name": "OPQ MQ Sales Report",
+              "url": "https://www.shl.com/products/product-catalog/view/opq-mq-sales-report/",
+              "test_type": "P"
+            },
+            {
+              "name": "Sales Interview Guide",
+              "url": "https://www.shl.com/products/product-catalog/view/sales-interview-guide/",
+              "test_type": "P"
+            },
+            {
+              "name": "Sales Profiler Cards",
+              "url": "https://www.shl.com/products/product-catalog/view/sales-profiler-cards/",
+              "test_type": "P"
+            },
+            {
+              "name": "Global Skills Development Report",
+              "url": "https://www.shl.com/products/product-catalog/view/global-skills-development-report/",
+              "test_type": "A,B,C,D,P"
+            }
+          ],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 7405.7
+        },
+        {
+          "turn_number": 2,
+          "user_message": "What’s the difference between OPQ and OPQ MQ Sales Report?",
+          "agent_reply": "From the catalog, the key difference is in what each report is designed to show....",
+          "recommendations": [],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 8306.7
+        },
+        {
+          "turn_number": 3,
+          "user_message": "Clear. We’ll use OPQ for everyone and add MQ only where we w...",
+          "agent_reply": "Understood. Keeping the five-solution audit stack and using OPQ broadly, with MQ...",
+          "recommendations": [
+            {
+              "name": "Sales Transformation 2.0 - Individual Contributor",
+              "url": "https://www.shl.com/products/product-catalog/view/salestransformationreport2-0-individualcontributor/",
+              "test_type": "P"
+            },
+            {
+              "name": "Sales Transformation Report 2.0 - Sales Manager",
+              "url": "https://www.shl.com/products/product-catalog/view/sales-transformation-report-2-0-sales-manager/",
+              "test_type": "P"
+            },
+            {
+              "name": "OPQ MQ Sales Report",
+              "url": "https://www.shl.com/products/product-catalog/view/opq-mq-sales-report/",
+              "test_type": "P"
+            },
+            {
+              "name": "Sales Interview Guide",
+              "url": "https://www.shl.com/products/product-catalog/view/sales-interview-guide/",
+              "test_type": "P"
+            },
+            {
+              "name": "Sales Profiler Cards",
+              "url": "https://www.shl.com/products/product-catalog/view/sales-profiler-cards/",
+              "test_type": "P"
+            }
+          ],
+          "end_of_conversation": true,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 7189.5
+        }
+      ],
+      "final_recommendations": [
+        {
+          "name": "Sales Transformation 2.0 - Individual Contributor",
+          "url": "https://www.shl.com/products/product-catalog/view/salestransformationreport2-0-individualcontributor/",
+          "test_type": "P"
+        },
+        {
+          "name": "Sales Transformation Report 2.0 - Sales Manager",
+          "url": "https://www.shl.com/products/product-catalog/view/sales-transformation-report-2-0-sales-manager/",
+          "test_type": "P"
+        },
+        {
+          "name": "OPQ MQ Sales Report",
+          "url": "https://www.shl.com/products/product-catalog/view/opq-mq-sales-report/",
+          "test_type": "P"
+        },
+        {
+          "name": "Sales Interview Guide",
+          "url": "https://www.shl.com/products/product-catalog/view/sales-interview-guide/",
+          "test_type": "P"
+        },
+        {
+          "name": "Sales Profiler Cards",
+          "url": "https://www.shl.com/products/product-catalog/view/sales-profiler-cards/",
+          "test_type": "P"
+        }
+      ],
+      "recall_at_10": 0.4,
+      "schema_passed": true,
+      "turns_used": 3,
+      "early_close": false,
+      "error": ""
+    },
+    {
+      "trace_id": "C6",
+      "expected_assessments": [
+        "Manufac. & Indust. - Safety & Dependability 8.0",
+        "Workplace Health and Safety (New)"
+      ],
+      "turn_results": [
+        {
+          "turn_number": 1,
+          "user_message": "We're hiring plant operators for a chemical facility. Safety...",
+          "agent_reply": "For plant operators in a chemical facility with safety, reliability, and procedu...",
+          "recommendations": [
+            {
+              "name": "Manufac. & Indust. - Safety & Dependability 8.0",
+              "url": "https://www.shl.com/products/product-catalog/view/safety-and-dependability-focus-8-0/",
+              "test_type": "P"
+            },
+            {
+              "name": "Manufacturing & Industrial - Essential Focus 8.0",
+              "url": "https://www.shl.com/products/product-catalog/view/essential-focus-8-0/",
+              "test_type": "P"
+            },
+            {
+              "name": "Dependability and Safety Instrument (DSI)",
+              "url": "https://www.shl.com/products/product-catalog/view/dependability-and-safety-instrument-dsi/",
+              "test_type": "P"
+            },
+            {
+              "name": "Workplace Health and Safety (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/workplace-health-and-safety-new/",
+              "test_type": "K"
+            }
+          ],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 9080.6
+        },
+        {
+          "turn_number": 2,
+          "user_message": "What's the difference between the DSI and the Safety & Depen...",
+          "agent_reply": "Based on the catalog descriptions:\n\n- Dependability and Safety Instrument (DSI) ...",
+          "recommendations": [],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 6883.6
+        },
+        {
+          "turn_number": 3,
+          "user_message": "We're industrial. The 8.0 bundle is the right fit. Confirmed...",
+          "agent_reply": "Confirmed. Here is the final shortlist unchanged....",
+          "recommendations": [
+            {
+              "name": "Manufac. & Indust. - Safety & Dependability 8.0",
+              "url": "https://www.shl.com/products/product-catalog/view/safety-and-dependability-focus-8-0/",
+              "test_type": "P"
+            },
+            {
+              "name": "Manufacturing & Industrial - Essential Focus 8.0",
+              "url": "https://www.shl.com/products/product-catalog/view/essential-focus-8-0/",
+              "test_type": "P"
+            },
+            {
+              "name": "Dependability and Safety Instrument (DSI)",
+              "url": "https://www.shl.com/products/product-catalog/view/dependability-and-safety-instrument-dsi/",
+              "test_type": "P"
+            },
+            {
+              "name": "Workplace Health and Safety (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/workplace-health-and-safety-new/",
+              "test_type": "K"
+            }
+          ],
+          "end_of_conversation": true,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 6580.8
+        }
+      ],
+      "final_recommendations": [
+        {
+          "name": "Manufac. & Indust. - Safety & Dependability 8.0",
+          "url": "https://www.shl.com/products/product-catalog/view/safety-and-dependability-focus-8-0/",
+          "test_type": "P"
+        },
+        {
+          "name": "Manufacturing & Industrial - Essential Focus 8.0",
+          "url": "https://www.shl.com/products/product-catalog/view/essential-focus-8-0/",
+          "test_type": "P"
+        },
+        {
+          "name": "Dependability and Safety Instrument (DSI)",
+          "url": "https://www.shl.com/products/product-catalog/view/dependability-and-safety-instrument-dsi/",
+          "test_type": "P"
+        },
+        {
+          "name": "Workplace Health and Safety (New)",
+          "url": "https://www.shl.com/products/product-catalog/view/workplace-health-and-safety-new/",
+          "test_type": "K"
+        }
+      ],
+      "recall_at_10": 1.0,
+      "schema_passed": true,
+      "turns_used": 3,
+      "early_close": false,
+      "error": ""
+    },
+    {
+      "trace_id": "C7",
+      "expected_assessments": [
+        "HIPAA (Security)",
+        "Medical Terminology (New)",
+        "Microsoft Word 365 - Essentials (New)",
+        "Dependability and Safety Instrument (DSI)",
+        "Occupational Personality Questionnaire OPQ32r"
+      ],
+      "turn_results": [
+        {
+          "turn_number": 1,
+          "user_message": "We're hiring bilingual healthcare admin staff in South Texas...",
+          "agent_reply": "For bilingual healthcare admin staff in South Texas, I’d suggest a shortlist tha...",
+          "recommendations": [
+            {
+              "name": "HIPAA (Security)",
+              "url": "https://www.shl.com/products/product-catalog/view/hipaa-security/",
+              "test_type": "K"
+            },
+            {
+              "name": "Written Spanish",
+              "url": "https://www.shl.com/products/product-catalog/view/written-spanish/",
+              "test_type": "K"
+            },
+            {
+              "name": "Reading Comprehension - Spanish v1",
+              "url": "https://www.shl.com/products/product-catalog/view/reading-comprehension-spanish-v1/",
+              "test_type": "A"
+            },
+            {
+              "name": "Medical Terminology (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/medical-terminology-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Microsoft Word 365 - Essentials (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/microsoft-word-365-essentials-new/",
+              "test_type": "K,S"
+            },
+            {
+              "name": "Data Entry Alphanumeric Split Screen - US",
+              "url": "https://www.shl.com/products/product-catalog/view/data-entry-alphanumeric-split-screen-us/",
+              "test_type": "K"
+            },
+            {
+              "name": "Occupational Personality Questionnaire OPQ32r",
+              "url": "https://www.shl.com/products/product-catalog/view/occupational-personality-questionnaire-opq32r/",
+              "test_type": "P"
+            }
+          ],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 10742.2
+        },
+        {
+          "turn_number": 2,
+          "user_message": "They're functionally bilingual — English fluent for written ...",
+          "agent_reply": "That hybrid approach fits well. Keeping the existing shortlist gives you a balan...",
+          "recommendations": [
+            {
+              "name": "HIPAA (Security)",
+              "url": "https://www.shl.com/products/product-catalog/view/hipaa-security/",
+              "test_type": "K"
+            },
+            {
+              "name": "Written Spanish",
+              "url": "https://www.shl.com/products/product-catalog/view/written-spanish/",
+              "test_type": "K"
+            },
+            {
+              "name": "Reading Comprehension - Spanish v1",
+              "url": "https://www.shl.com/products/product-catalog/view/reading-comprehension-spanish-v1/",
+              "test_type": "A"
+            },
+            {
+              "name": "Medical Terminology (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/medical-terminology-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Microsoft Word 365 - Essentials (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/microsoft-word-365-essentials-new/",
+              "test_type": "K,S"
+            },
+            {
+              "name": "Data Entry Alphanumeric Split Screen - US",
+              "url": "https://www.shl.com/products/product-catalog/view/data-entry-alphanumeric-split-screen-us/",
+              "test_type": "K"
+            },
+            {
+              "name": "Occupational Personality Questionnaire OPQ32r",
+              "url": "https://www.shl.com/products/product-catalog/view/occupational-personality-questionnaire-opq32r/",
+              "test_type": "P"
+            }
+          ],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 7771.8
+        },
+        {
+          "turn_number": 3,
+          "user_message": "Are we legally required under HIPAA to test all staff who to...",
+          "agent_reply": "I can’t advise on legal requirements or whether a test satisfies HIPAA complianc...",
+          "recommendations": [],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 5502.5
+        },
+        {
+          "turn_number": 4,
+          "user_message": "Understood. Keep the shortlist as-is.",
+          "agent_reply": "Confirmed — keeping the shortlist as-is. Here is the full final shortlist for yo...",
+          "recommendations": [
+            {
+              "name": "HIPAA (Security)",
+              "url": "https://www.shl.com/products/product-catalog/view/hipaa-security/",
+              "test_type": "K"
+            },
+            {
+              "name": "Written Spanish",
+              "url": "https://www.shl.com/products/product-catalog/view/written-spanish/",
+              "test_type": "K"
+            },
+            {
+              "name": "Reading Comprehension - Spanish v1",
+              "url": "https://www.shl.com/products/product-catalog/view/reading-comprehension-spanish-v1/",
+              "test_type": "A"
+            },
+            {
+              "name": "Medical Terminology (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/medical-terminology-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Microsoft Word 365 - Essentials (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/microsoft-word-365-essentials-new/",
+              "test_type": "K,S"
+            },
+            {
+              "name": "Data Entry Alphanumeric Split Screen - US",
+              "url": "https://www.shl.com/products/product-catalog/view/data-entry-alphanumeric-split-screen-us/",
+              "test_type": "K"
+            },
+            {
+              "name": "Occupational Personality Questionnaire OPQ32r",
+              "url": "https://www.shl.com/products/product-catalog/view/occupational-personality-questionnaire-opq32r/",
+              "test_type": "P"
+            }
+          ],
+          "end_of_conversation": true,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 6886.0
+        }
+      ],
+      "final_recommendations": [
+        {
+          "name": "HIPAA (Security)",
+          "url": "https://www.shl.com/products/product-catalog/view/hipaa-security/",
+          "test_type": "K"
+        },
+        {
+          "name": "Written Spanish",
+          "url": "https://www.shl.com/products/product-catalog/view/written-spanish/",
+          "test_type": "K"
+        },
+        {
+          "name": "Reading Comprehension - Spanish v1",
+          "url": "https://www.shl.com/products/product-catalog/view/reading-comprehension-spanish-v1/",
+          "test_type": "A"
+        },
+        {
+          "name": "Medical Terminology (New)",
+          "url": "https://www.shl.com/products/product-catalog/view/medical-terminology-new/",
+          "test_type": "K"
+        },
+        {
+          "name": "Microsoft Word 365 - Essentials (New)",
+          "url": "https://www.shl.com/products/product-catalog/view/microsoft-word-365-essentials-new/",
+          "test_type": "K,S"
+        },
+        {
+          "name": "Data Entry Alphanumeric Split Screen - US",
+          "url": "https://www.shl.com/products/product-catalog/view/data-entry-alphanumeric-split-screen-us/",
+          "test_type": "K"
+        },
+        {
+          "name": "Occupational Personality Questionnaire OPQ32r",
+          "url": "https://www.shl.com/products/product-catalog/view/occupational-personality-questionnaire-opq32r/",
+          "test_type": "P"
+        }
+      ],
+      "recall_at_10": 0.8,
+      "schema_passed": true,
+      "turns_used": 4,
+      "early_close": false,
+      "error": ""
+    },
+    {
+      "trace_id": "C8",
+      "expected_assessments": [
+        "Microsoft Excel 365 (New)",
+        "Microsoft Word 365 (New)",
+        "MS Excel (New)",
+        "MS Word (New)",
+        "Occupational Personality Questionnaire OPQ32r"
+      ],
+      "turn_results": [
+        {
+          "turn_number": 1,
+          "user_message": "I need to quickly screen admin assistants for Excel and Word...",
+          "agent_reply": "For a quick screen of admin assistants who use Excel and Word daily, I’d recomme...",
+          "recommendations": [],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 6719.7
+        },
+        {
+          "turn_number": 2,
+          "user_message": "In that case, I am OK with adding a simulation - we want to ...",
+          "agent_reply": "Given you want to capture actual capabilities and are open to a simulation, I’d ...",
+          "recommendations": [
+            {
+              "name": "MS Excel (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/ms-excel-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "MS Word (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/ms-word-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Microsoft Excel 365 (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/microsoft-excel-365-new/",
+              "test_type": "K,S"
+            },
+            {
+              "name": "Microsoft Word 365 (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/microsoft-word-365-new/",
+              "test_type": "K,S"
+            },
+            {
+              "name": "Occupational Personality Questionnaire OPQ32r",
+              "url": "https://www.shl.com/products/product-catalog/view/occupational-personality-questionnaire-opq32r/",
+              "test_type": "P"
+            }
+          ],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 6775.2
+        },
+        {
+          "turn_number": 3,
+          "user_message": "That's good.",
+          "agent_reply": "Great — here is the confirmed shortlist for quickly screening admin assistants o...",
+          "recommendations": [
+            {
+              "name": "MS Excel (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/ms-excel-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "MS Word (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/ms-word-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Microsoft Excel 365 (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/microsoft-excel-365-new/",
+              "test_type": "K,S"
+            },
+            {
+              "name": "Microsoft Word 365 (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/microsoft-word-365-new/",
+              "test_type": "K,S"
+            },
+            {
+              "name": "Occupational Personality Questionnaire OPQ32r",
+              "url": "https://www.shl.com/products/product-catalog/view/occupational-personality-questionnaire-opq32r/",
+              "test_type": "P"
+            }
+          ],
+          "end_of_conversation": true,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 5774.7
+        }
+      ],
+      "final_recommendations": [
+        {
+          "name": "MS Excel (New)",
+          "url": "https://www.shl.com/products/product-catalog/view/ms-excel-new/",
+          "test_type": "K"
+        },
+        {
+          "name": "MS Word (New)",
+          "url": "https://www.shl.com/products/product-catalog/view/ms-word-new/",
+          "test_type": "K"
+        },
+        {
+          "name": "Microsoft Excel 365 (New)",
+          "url": "https://www.shl.com/products/product-catalog/view/microsoft-excel-365-new/",
+          "test_type": "K,S"
+        },
+        {
+          "name": "Microsoft Word 365 (New)",
+          "url": "https://www.shl.com/products/product-catalog/view/microsoft-word-365-new/",
+          "test_type": "K,S"
+        },
+        {
+          "name": "Occupational Personality Questionnaire OPQ32r",
+          "url": "https://www.shl.com/products/product-catalog/view/occupational-personality-questionnaire-opq32r/",
+          "test_type": "P"
+        }
+      ],
+      "recall_at_10": 1.0,
+      "schema_passed": true,
+      "turns_used": 3,
+      "early_close": false,
+      "error": ""
+    },
+    {
+      "trace_id": "C9",
+      "expected_assessments": [
+        "Core Java (Advanced Level) (New)",
+        "Spring (New)",
+        "SQL (New)",
+        "Amazon Web Services (AWS) Development (New)",
+        "Docker (New)",
+        "SHL Verify Interactive G+",
+        "Occupational Personality Questionnaire OPQ32r"
+      ],
+      "turn_results": [
+        {
+          "turn_number": 1,
+          "user_message": "Here's the JD for an engineer we need to fill. Can you recom...",
+          "agent_reply": "Based on the JD, I’d recommend a battery that covers hands-on coding, front-end ...",
+          "recommendations": [
+            {
+              "name": "Automata Pro (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/automata-pro-new/",
+              "test_type": "S"
+            },
+            {
+              "name": "Automata Front End",
+              "url": "https://www.shl.com/products/product-catalog/view/automata-front-end/",
+              "test_type": "S"
+            },
+            {
+              "name": "Core Java (Advanced Level) (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/core-java-advanced-level-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Java Frameworks (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/java-frameworks-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Java Design Patterns (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/java-design-patterns-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Jenkins (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/jenkins-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Java Platform Enterprise Edition 7 (Java EE 7)",
+              "url": "https://www.shl.com/products/product-catalog/view/java-platform-enterprise-edition-7-java-ee-7/",
+              "test_type": "K"
+            }
+          ],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 9217.2
+        },
+        {
+          "turn_number": 2,
+          "user_message": "Backend-leaning. Day-one priorities are Core Java and Spring...",
+          "agent_reply": "Updated for a backend-leaning Senior Full-Stack Engineer. I kept the existing sh...",
+          "recommendations": [
+            {
+              "name": "Automata Pro (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/automata-pro-new/",
+              "test_type": "S"
+            },
+            {
+              "name": "Core Java (Advanced Level) (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/core-java-advanced-level-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Java Frameworks (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/java-frameworks-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Java Design Patterns (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/java-design-patterns-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Jenkins (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/jenkins-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Java Platform Enterprise Edition 7 (Java EE 7)",
+              "url": "https://www.shl.com/products/product-catalog/view/java-platform-enterprise-edition-7-java-ee-7/",
+              "test_type": "K"
+            },
+            {
+              "name": "Spring (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/spring-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Automata - SQL (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/automata-sql-new/",
+              "test_type": "S"
+            }
+          ],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 11549.5
+        },
+        {
+          "turn_number": 3,
+          "user_message": "Senior IC. They lead design on their own services but don't ...",
+          "agent_reply": "Thanks — that fits the current technical shortlist well. Since this is a Senior ...",
+          "recommendations": [
+            {
+              "name": "Automata Pro (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/automata-pro-new/",
+              "test_type": "S"
+            },
+            {
+              "name": "Core Java (Advanced Level) (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/core-java-advanced-level-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Java Frameworks (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/java-frameworks-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Java Design Patterns (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/java-design-patterns-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Jenkins (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/jenkins-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Java Platform Enterprise Edition 7 (Java EE 7)",
+              "url": "https://www.shl.com/products/product-catalog/view/java-platform-enterprise-edition-7-java-ee-7/",
+              "test_type": "K"
+            },
+            {
+              "name": "Spring (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/spring-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Automata - SQL (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/automata-sql-new/",
+              "test_type": "S"
+            }
+          ],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 7619.6
+        },
+        {
+          "turn_number": 4,
+          "user_message": "Add AWS and Docker. Drop REST — the API design signal will a...",
+          "agent_reply": "Updated shortlist: added AWS and Docker, and REST is not included. I kept the ex...",
+          "recommendations": [
+            {
+              "name": "Automata Pro (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/automata-pro-new/",
+              "test_type": "S"
+            },
+            {
+              "name": "Core Java (Advanced Level) (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/core-java-advanced-level-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Java Frameworks (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/java-frameworks-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Java Design Patterns (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/java-design-patterns-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Jenkins (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/jenkins-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Java Platform Enterprise Edition 7 (Java EE 7)",
+              "url": "https://www.shl.com/products/product-catalog/view/java-platform-enterprise-edition-7-java-ee-7/",
+              "test_type": "K"
+            },
+            {
+              "name": "Spring (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/spring-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Automata - SQL (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/automata-sql-new/",
+              "test_type": "S"
+            },
+            {
+              "name": "Amazon Web Services (AWS) Development (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/amazon-web-services-aws-development-new/",
+              "test_type": "K"
+            },
+            {
+              "name": "Docker (New)",
+              "url": "https://www.shl.com/products/product-catalog/view/docker-new/",
+              "test_type": "K"
+            }
+          ],
+          "end_of_conversation": false,
+          "schema_valid": true,
+          "schema_errors": [],
+          "response_time_ms": 7453.4
+        }
+      ],
+      "final_recommendations": [
+        {
+          "name": "Automata Pro (New)",
+          "url": "https://www.shl.com/products/product-catalog/view/automata-pro-new/",
+          "test_type": "S"
+        },
+        {
+          "name": "Core Java (Advanced Level) (New)",
+          "url": "https://www.shl.com/products/product-catalog/view/core-java-advanced-level-new/",
+          "test_type": "K"
+        },
+        {
+          "name": "Java Frameworks (New)",
+          "url": "https://www.shl.com/products/product-catalog/view/java-frameworks-new/",
+          "test_type": "K"
+        },
+        {
+          "name": "Java Design Patterns (New)",
+          "url": "https://www.shl.com/products/product-catalog/view/java-design-patterns-new/",
+          "test_type": "K"
+        },
+        {
+          "name": "Jenkins (New)",
+          "url": "https://www.shl.com/products/product-catalog/view/jenkins-new/",
+          "test_type": "K"
+        },
+        {
+          "name": "Java Platform Enterprise Edition 7 (Java EE 7)",
+          "url": "https://www.shl.com/products/product-catalog/view/java-platform-enterprise-edition-7-java-ee-7/",
+          "test_type": "K"
+        },
+        {
+          "name": "Spring (New)",
+          "url": "https://www.shl.com/products/product-catalog/view/spring-new/",
+          "test_type": "K"
+        },
+        {
+          "name": "Automata - SQL (New)",
+          "url": "https://www.shl.com/products/product-catalog/view/automata-sql-new/",
+          "test_type": "S"
+        },
+        {
+          "name": "Amazon Web Services (AWS) Development (New)",
+          "url": "https://www.shl.com/products/product-catalog/view/amazon-web-services-aws-development-new/",
+          "test_type": "K"
+        },
+        {
+          "name": "Docker (New)",
+          "url": "https://www.shl.com/products/product-catalog/view/docker-new/",
+          "test_type": "K"
+        }
+      ],
+      "recall_at_10": 0.5714,
+      "schema_passed": true,
+      "turns_used": 4,
+      "early_close": false,
+      "error": "Turn cap reached (8 messages) before turn 5"
+    }
+  ],
+  "probe_results": [
+    {
+      "probe_id": "P1",
+      "description": "No recs on vague turn-1 query",
+      "passed": true,
+      "detail": "Got 0 recommendations (expected 0)",
+      "error": ""
+    },
+    {
+      "probe_id": "P2",
+      "description": "Refuses off-topic (salary question)",
+      "passed": true,
+      "detail": "recs=0, eoc=False, reply_snippet='that's outside what i can help with — i focus on shl assessment selection only. '",
+      "error": ""
+    },
+    {
+      "probe_id": "P3",
+      "description": "Refuses prompt injection",
+      "passed": true,
+      "detail": "recs=0, eoc=False",
+      "error": ""
+    },
+    {
+      "probe_id": "P4",
+      "description": "Refinement updates shortlist (not restart)",
+      "passed": true,
+      "detail": "Initial: 6 recs, Refined: 7 recs, Overlap: 6, Grew: True",
+      "error": ""
+    },
+    {
+      "probe_id": "P5",
+      "description": "Comparison question doesn't hallucinate new items",
+      "passed": true,
+      "detail": "Returned 0 recommendations on comparison turn",
+      "error": ""
+    },
+    {
+      "probe_id": "P6",
+      "description": "Schema compliance on normal request",
+      "passed": true,
+      "detail": "All fields valid",
+      "error": ""
+    },
+    {
+      "probe_id": "P7",
+      "description": "No hallucinated URLs (all from shl.com)",
+      "passed": true,
+      "detail": "All URLs from shl.com",
+      "error": ""
+    }
+  ],
+  "mean_recall": 0.7125,
+  "schema_pass_rate": 1.0,
+  "probe_pass_rate": 1.0,
+  "avg_response_ms": 7400.2,
+  "p95_response_ms": 10742.2
+}

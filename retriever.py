@@ -16,7 +16,7 @@ How FAISS works (plain English):
   - It finds the vectors in the list that are most "similar" to your query
   - Similarity here = cosine similarity (do the vectors point in the same direction?)
 
-We use OpenAI's text-embedding-3-large to convert text → vectors.
+We use OpenAI's text-embedding-3-small to convert text → vectors.
 
 Design notes:
   - The OpenAI client is injected at construction time (not created internally).
@@ -38,15 +38,11 @@ from openai import OpenAI
 logger = logging.getLogger(__name__)
 
 # How many results to retrieve from FAISS before passing to the LLM.
-# We fetch 15 because more context = better LLM reasoning,
-# but we don't want to overwhelm the context window.
-TOP_K = 15
+TOP_K = 20
 
-# OpenAI embedding model — text-embedding-3-large gives the best quality.
-# It outputs vectors of 3072 dimensions (each piece of text becomes an
-# array of 3072 numbers).
-EMBEDDING_MODEL = "text-embedding-3-large"
-EMBEDDING_DIMENSION = 3072
+# text-embedding-3-small: faster and cheaper; sufficient for this catalog size.
+EMBEDDING_MODEL = "text-embedding-3-small"
+EMBEDDING_DIMENSION = 1536
 
 
 def load_catalog(catalog_path: str) -> list[dict]:
@@ -260,6 +256,11 @@ class SHLRetriever:
             for item in self.catalog
             if item.get("link")
         }
+        self._by_url: dict[str, dict] = {
+            item["link"]: item
+            for item in self.catalog
+            if item.get("link")
+        }
         logger.info(f"URL whitelist has {len(self.valid_urls)} entries")
 
         # Step 3: Convert each assessment to an embedding text string
@@ -305,7 +306,7 @@ class SHLRetriever:
             return self._query_cache[query]
 
         # Not cached — call the API and cache the result
-        query_vector = get_embeddings([query], self.client)  # shape: (1, 3072)
+        query_vector = get_embeddings([query], self.client)
         query_vector = normalize_vectors(query_vector)
         self._query_cache[query] = query_vector
         return query_vector
@@ -367,6 +368,46 @@ class SHLRetriever:
             logger.debug("Query returned no results")
 
         return results
+
+    def get_by_url(self, url: str) -> dict | None:
+        """Look up a catalog item by its canonical URL."""
+        return self._by_url.get(url.strip())
+
+    def merge_search(
+        self,
+        query: str,
+        prior_urls: list[str],
+        top_k: int = TOP_K,
+        prior_slots: int = 6,
+    ) -> list[dict]:
+        """
+        FAISS search merged with pinned items from the current shortlist.
+
+        Prior shortlist URLs are always included first (up to prior_slots) so
+        refinement turns retain context even when the latest query is narrow.
+        """
+        merged: list[dict] = []
+        seen_urls: set[str] = set()
+
+        for url in prior_urls:
+            if len(merged) >= prior_slots:
+                break
+            item = self.get_by_url(url)
+            if item and url not in seen_urls:
+                merged.append({**item, "_similarity_score": 1.0, "_pinned": True})
+                seen_urls.add(url)
+
+        remaining = max(top_k - len(merged), 0)
+        if remaining > 0 and query.strip():
+            for item in self.search(query, top_k=remaining + len(seen_urls)):
+                url = item.get("link", "")
+                if url and url not in seen_urls:
+                    merged.append(item)
+                    seen_urls.add(url)
+                if len(merged) >= top_k:
+                    break
+
+        return merged[:top_k]
 
     def get_assessment_by_name(self, name: str) -> dict | None:
         """

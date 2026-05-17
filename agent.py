@@ -26,27 +26,32 @@ Flow for every POST /chat:
   return dict
 """
 
+import json
 import logging
-import os
 import re
 
 from openai import OpenAI
 
 from retriever import SHLRetriever
-from validator import validate_response
+from validator import MAX_MESSAGES_LENGTH, validate_response
 
 logger = logging.getLogger(__name__)
 
 # LLM model — fast and cheap, sufficient for structured JSON output
 LLM_MODEL = "gpt-4o-mini"
 
-# How many catalog items to retrieve from FAISS per request
-RETRIEVAL_TOP_K = 15
+# How many catalog items to inject into the LLM context (retrieval + pinned shortlist).
+RETRIEVAL_TOP_K = 20
 
 # At this many total messages we inject the MUST_RECOMMEND instruction.
-# 6 messages = 3 user + 3 assistant turns.
-# Leaves 2 turns of buffer for the user to confirm before the 8-turn cap.
+# 6 messages = 3 user + 3 assistant exchanges before the 8-message cap.
 MUST_RECOMMEND_THRESHOLD = 6
+
+# Only send the most recent messages to the LLM (keeps latency under ~30s/call).
+LLM_HISTORY_WINDOW = 6
+
+# Embedded in assistant history so the next request can recover the shortlist.
+SHORTLIST_MARKER = "\n__SHL_SHORTLIST__\n"
 
 # Keywords that strongly suggest the user is confirming/closing
 # Used as a lightweight pre-check alongside the LLM's own judgment
@@ -67,6 +72,66 @@ HARD_OFFTOPIC_PATTERNS = [
     r"\b(you are now|pretend you are|act as)\b",
     r"\b(jailbreak|bypass|override)\b",
 ]
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Shortlist persistence (stateless API — encoded in assistant messages)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def format_assistant_message(reply: str, recommendations: list[dict]) -> str:
+    """
+    Pack the validated shortlist into assistant content for the next /chat call.
+
+    The evaluator and test harness should store this string as the assistant turn
+    so refinement and closing turns can start from the prior list.
+    """
+    if not recommendations:
+        return reply
+    payload = [
+        {
+            "name": item["name"],
+            "url": item["url"],
+            "test_type": item.get("test_type", ""),
+        }
+        for item in recommendations
+    ]
+    return f"{reply.strip()}{SHORTLIST_MARKER}{json.dumps(payload)}"
+
+
+def extract_previous_shortlist(messages: list[dict]) -> list[dict]:
+    """Recover the most recent shortlist from assistant message metadata."""
+    for msg in reversed(messages):
+        if msg.get("role") != "assistant":
+            continue
+        content = msg.get("content", "")
+        if SHORTLIST_MARKER not in content:
+            continue
+        try:
+            _, raw = content.rsplit(SHORTLIST_MARKER, 1)
+            data = json.loads(raw.strip())
+            if isinstance(data, list):
+                return [item for item in data if isinstance(item, dict) and item.get("url")]
+        except (json.JSONDecodeError, ValueError):
+            logger.warning("Failed to parse embedded shortlist from assistant message")
+    return []
+
+
+def trim_messages_for_llm(messages: list[dict], max_messages: int = LLM_HISTORY_WINDOW) -> list[dict]:
+    """Send only recent turns to the LLM to limit tokens and latency."""
+    if len(messages) <= max_messages:
+        return messages
+    return messages[-max_messages:]
+
+
+def format_shortlist_for_prompt(shortlist: list[dict]) -> str:
+    """Format the current shortlist for injection into the system prompt."""
+    lines = []
+    for i, item in enumerate(shortlist, start=1):
+        lines.append(
+            f"  {i}. {item.get('name', '')} | {item.get('url', '')} | "
+            f"test_type={item.get('test_type', '')}"
+        )
+    return "\n".join(lines)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -260,6 +325,7 @@ def is_hard_offtopic(message: str) -> bool:
 def build_system_prompt(
     catalog_context: str,
     hints: dict,
+    previous_shortlist: list[dict] | None = None,
 ) -> str:
     """
     Build the full system prompt for this conversation turn.
@@ -277,6 +343,7 @@ def build_system_prompt(
         catalog_context: Formatted string of retrieved assessments
                          (from retriever.format_for_prompt())
         hints: Dict from detect_mode_hints()
+        previous_shortlist: Last validated recommendations from the prior turn
 
     Returns:
         Full system prompt string
@@ -309,6 +376,17 @@ Only use URLs that appear in this list — never construct or guess URLs.
 
 {catalog_context}
 === END OF CATALOG CONTEXT ==="""
+
+    shortlist_section = ""
+    if previous_shortlist:
+        shortlist_section = f"""
+=== CURRENT SHORTLIST (MANDATORY BASE) ===
+You already committed to this shortlist. Start from these items on every update.
+Apply only the user's requested delta (add / remove / swap). Never restart from scratch.
+Re-display the FULL updated list in recommendations after any change.
+
+{format_shortlist_for_prompt(previous_shortlist)}
+=== END OF CURRENT SHORTLIST ==="""
 
     # ── Section 3: Behavioural Rules ─────────────────────────────────────────
     # Core rules derived from the 10 example conversation traces
@@ -381,8 +459,15 @@ Set recommendations to [] unless you want to repeat the current shortlist."""
     elif hints["likely_closing"]:
         turn_instruction = """
 === TURN INSTRUCTION ===
-The user appears to be confirming the shortlist.
-Repeat the final shortlist in recommendations and set end_of_conversation to true."""
+The user is confirming the shortlist. Return the COMPLETE current shortlist unchanged
+in recommendations (every item from CURRENT SHORTLIST above) and set
+end_of_conversation to true."""
+
+    elif previous_shortlist:
+        turn_instruction = """
+=== TURN INSTRUCTION ===
+The user is refining the existing shortlist. Start from CURRENT SHORTLIST above.
+Apply only their requested changes, then return the FULL updated list."""
 
     # ── Section 4: Output Format ──────────────────────────────────────────────
     output_section = """
@@ -414,6 +499,7 @@ RULES FOR end_of_conversation:
     return (
         role_section
         + catalog_section
+        + shortlist_section
         + rules_section
         + turn_instruction
         + output_section
@@ -524,10 +610,15 @@ def get_agent_response(
     # ── Step 3: Build FAISS retrieval query ───────────────────────────────────
     query = build_retrieval_query(messages)
 
-    # ── Step 4: Retrieve relevant assessments from catalog ────────────────────
-    retrieved_assessments = retriever.search(query, top_k=RETRIEVAL_TOP_K)
+    # ── Step 4: Recover prior shortlist and retrieve catalog context ───────────
+    previous_shortlist = extract_previous_shortlist(messages)
+    prior_urls = [item["url"] for item in previous_shortlist if item.get("url")]
 
-    # Format assessments into a string for the prompt
+    retrieved_assessments = retriever.merge_search(
+        query,
+        prior_urls=prior_urls,
+        top_k=RETRIEVAL_TOP_K,
+    )
     catalog_context = retriever.format_for_prompt(retrieved_assessments)
 
     # ── Step 5: Detect mode hints ─────────────────────────────────────────────
@@ -536,21 +627,29 @@ def get_agent_response(
         f"Turn {hints['turn_number']} | "
         f"must_recommend={hints['must_recommend']} | "
         f"likely_closing={hints['likely_closing']} | "
-        f"is_comparison={hints['is_comparison']}"
+        f"is_comparison={hints['is_comparison']} | "
+        f"prior_shortlist={len(previous_shortlist)}"
     )
 
     # ── Step 6: Build system prompt ───────────────────────────────────────────
-    system_prompt = build_system_prompt(catalog_context, hints)
+    system_prompt = build_system_prompt(
+        catalog_context,
+        hints,
+        previous_shortlist=previous_shortlist or None,
+    )
 
-    # ── Step 7: Call the LLM ──────────────────────────────────────────────────
-    raw_llm_response = call_llm(system_prompt, messages, client)
+    # ── Step 7: Call the LLM (recent history only — latency) ─────────────────
+    llm_messages = trim_messages_for_llm(messages)
+    raw_llm_response = call_llm(system_prompt, llm_messages, client)
 
     # ── Step 8: Validate and clean the response ───────────────────────────────
-    # validator.py enforces schema, URL whitelist, test_type codes, and turn cap
     validated = validate_response(
         raw_llm_text=raw_llm_response,
         valid_urls=retriever.valid_urls,
         messages_length=len(messages),
+        previous_shortlist=previous_shortlist or None,
+        enforce_closing=hints["likely_closing"],
+        is_comparison=hints["is_comparison"],
     )
 
     return validated

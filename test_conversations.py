@@ -44,6 +44,9 @@ from pathlib import Path
 
 import requests
 
+from agent import format_assistant_message
+from validator import MAX_MESSAGES_LENGTH
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Data structures
@@ -549,7 +552,13 @@ def run_behavior_probes(base_url: str, timeout: int = 30) -> list[ProbeResult]:
         probes.append(ProbeResult("P4", "Refinement updates shortlist (not restart)", False,
                                   error="First turn failed"))
     else:
-        history.append({"role": "assistant", "content": resp1.get("reply", "")})
+        history.append({
+            "role": "assistant",
+            "content": format_assistant_message(
+                resp1.get("reply", ""),
+                resp1.get("recommendations", []),
+            ),
+        })
         initial_recs = resp1.get("recommendations", [])
 
         # Now refine: add personality test
@@ -591,7 +600,13 @@ def run_behavior_probes(base_url: str, timeout: int = 30) -> list[ProbeResult]:
         probes.append(ProbeResult("P5", "Comparison question returns [] recs", False,
                                   error="First turn failed"))
     else:
-        history.append({"role": "assistant", "content": resp1.get("reply", "")})
+        history.append({
+            "role": "assistant",
+            "content": format_assistant_message(
+                resp1.get("reply", ""),
+                resp1.get("recommendations", []),
+            ),
+        })
         history.append({"role": "user",
                         "content": "What's the difference between OPQ32r and the Global Skills Assessment?"})
         resp2 = _call_chat(base_url, history, timeout)
@@ -688,6 +703,13 @@ def run_trace(trace: Trace, base_url: str, timeout: int = 30) -> TraceResult:
     for turn_idx, user_message in enumerate(trace.user_messages):
         turn_number = turn_idx + 1
 
+        if len(conversation_history) >= MAX_MESSAGES_LENGTH:
+            error_message = (
+                f"Turn cap reached ({MAX_MESSAGES_LENGTH} messages) before turn {turn_number}"
+            )
+            print(f"  Turn {turn_number}: ✗ CAP ({MAX_MESSAGES_LENGTH} messages)")
+            break
+
         conversation_history.append({"role": "user", "content": user_message})
 
         try:
@@ -756,7 +778,10 @@ def run_trace(trace: Trace, base_url: str, timeout: int = 30) -> TraceResult:
 
         conversation_history.append({
             "role": "assistant",
-            "content": response_data.get("reply", ""),
+            "content": format_assistant_message(
+                response_data.get("reply", ""),
+                response_data.get("recommendations", []),
+            ),
         })
 
     # Compute Recall@10 with fuzzy matching

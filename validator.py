@@ -67,10 +67,8 @@ REQUIRED_FIELDS = {"reply", "recommendations", "end_of_conversation"}
 # Maximum recommendations per response (assignment requirement).
 MAX_RECOMMENDATIONS = 10
 
-# Absolute maximum turns before we force end_of_conversation: true.
-# 8-turn cap from the assignment, but we use 12 (messages list length =
-# user + assistant turns combined) as the safety net.
-MAX_MESSAGES_LENGTH = 12
+# Evaluator cap: at most 8 messages (user + assistant combined) per request.
+MAX_MESSAGES_LENGTH = 8
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -287,6 +285,9 @@ def validate_response(
     raw_llm_text: str,
     valid_urls: set[str],
     messages_length: int,
+    previous_shortlist: list[dict] | None = None,
+    enforce_closing: bool = False,
+    is_comparison: bool = False,
 ) -> dict:
     """
     Parse and validate a raw LLM response into a clean, schema-compliant dict.
@@ -300,6 +301,9 @@ def validate_response(
         valid_urls:      Set of all valid catalog URLs (from retriever)
         messages_length: Number of messages in the conversation so far
                          Used to force end_of_conversation at the turn cap
+        previous_shortlist: Last validated recommendations (for closing/refinement)
+        enforce_closing: When True, force end_of_conversation and prefer previous list
+        is_comparison: When True, skip refinement-merge logic
 
     Returns:
         A dict with exactly these keys:
@@ -340,6 +344,37 @@ def validate_response(
     raw_recommendations = parsed.get("recommendations", [])
     recommendations = validate_recommendations(raw_recommendations, valid_urls)
 
+    # Refinement: if the model wiped the prior list, merge back in
+    if (
+        previous_shortlist
+        and not enforce_closing
+        and not is_comparison
+        and recommendations
+    ):
+        prev_valid = validate_recommendations(previous_shortlist, valid_urls)
+        if prev_valid:
+            prev_urls = {r["url"] for r in prev_valid}
+            new_urls = {r["url"] for r in recommendations}
+            if prev_urls and not prev_urls & new_urls:
+                logger.warning("Refinement restarted shortlist — merging with previous")
+                seen: set[str] = set()
+                merged: list[dict] = []
+                for item in prev_valid + recommendations:
+                    url = item["url"]
+                    if url not in seen:
+                        seen.add(url)
+                        merged.append(item)
+                recommendations = merged[:MAX_RECOMMENDATIONS]
+
+    # Closing turn: keep the prior shortlist (evaluator expects stability)
+    if enforce_closing and previous_shortlist:
+        pinned = validate_recommendations(previous_shortlist, valid_urls)
+        if pinned:
+            recommendations = pinned
+            logger.info(
+                f"Closing turn: enforced previous shortlist ({len(recommendations)} items)"
+            )
+
     # end_of_conversation: must be a boolean
     eoc = parsed.get("end_of_conversation", False)
     if not isinstance(eoc, bool):
@@ -349,10 +384,10 @@ def validate_response(
         else:
             eoc = bool(eoc)
 
+    if enforce_closing:
+        eoc = True
+
     # ── Turn cap safety net ───────────────────────────────────────────────────
-    # If we've hit the absolute maximum messages length, force end_of_conversation.
-    # This should rarely trigger because the prompt already instructs the LLM
-    # to recommend by turn 6, but it's a hard safety net.
     if messages_length >= MAX_MESSAGES_LENGTH:
         if not eoc:
             logger.warning(
@@ -476,7 +511,7 @@ if __name__ == "__main__":
         ],
         "end_of_conversation": False   # LLM says false, but turn cap overrides
     })
-    result = validate_response(raw, MOCK_VALID_URLS, messages_length=12)
+    result = validate_response(raw, MOCK_VALID_URLS, messages_length=8)
     print(json.dumps(result, indent=2))
     print("→ end_of_conversation should be True despite LLM saying False")
 

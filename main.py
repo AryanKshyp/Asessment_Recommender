@@ -38,6 +38,7 @@ from pydantic import BaseModel, Field, field_validator
 
 from agent import get_agent_response
 from retriever import SHLRetriever
+from validator import MAX_MESSAGES_LENGTH
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Logging setup
@@ -82,7 +83,11 @@ class ChatRequest(BaseModel):
     messages: list[Message] = Field(
         ...,
         min_length=1,
-        description="Full conversation history. Must have at least one message."
+        max_length=MAX_MESSAGES_LENGTH,
+        description=(
+            f"Full conversation history (max {MAX_MESSAGES_LENGTH} messages, "
+            "user and assistant combined). Must end with a user message."
+        ),
     )
 
     @field_validator("messages")

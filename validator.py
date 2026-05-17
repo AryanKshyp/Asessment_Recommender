@@ -288,6 +288,7 @@ def validate_response(
     previous_shortlist: list[dict] | None = None,
     enforce_closing: bool = False,
     is_comparison: bool = False,
+    force_no_recommendations: bool = False,
 ) -> dict:
     """
     Parse and validate a raw LLM response into a clean, schema-compliant dict.
@@ -303,7 +304,8 @@ def validate_response(
                          Used to force end_of_conversation at the turn cap
         previous_shortlist: Last validated recommendations (for closing/refinement)
         enforce_closing: When True, force end_of_conversation and prefer previous list
-        is_comparison: When True, skip refinement-merge logic
+        is_comparison: When True, enforce comparison rules on recommendations
+        force_no_recommendations: When True, strip all recommendations (clarify/refusal)
 
     Returns:
         A dict with exactly these keys:
@@ -343,6 +345,20 @@ def validate_response(
     # recommendations: validate against catalog whitelist
     raw_recommendations = parsed.get("recommendations", [])
     recommendations = validate_recommendations(raw_recommendations, valid_urls)
+
+    if force_no_recommendations:
+        if recommendations:
+            logger.info("Clarify/refusal turn: stripping recommendations")
+        recommendations = []
+
+    # Comparison: grounded answer in reply; do not introduce new catalog items
+    if is_comparison:
+        prev_valid = validate_recommendations(previous_shortlist or [], valid_urls)
+        if prev_valid:
+            allowed_urls = {r["url"] for r in prev_valid}
+            recommendations = [r for r in recommendations if r["url"] in allowed_urls]
+        else:
+            recommendations = []
 
     # Refinement: if the model wiped the prior list, merge back in
     if (

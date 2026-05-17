@@ -38,10 +38,10 @@ from validator import MAX_MESSAGES_LENGTH, validate_response
 logger = logging.getLogger(__name__)
 
 # LLM model — fast and cheap, sufficient for structured JSON output
-LLM_MODEL = "gpt-4o-mini"
+LLM_MODEL = "gpt-5.4"
 
 # How many catalog items to inject into the LLM context (retrieval + pinned shortlist).
-RETRIEVAL_TOP_K = 20
+RETRIEVAL_TOP_K = 22
 
 # At this many total messages we inject the MUST_RECOMMEND instruction.
 # 6 messages = 3 user + 3 assistant exchanges before the 8-message cap.
@@ -299,10 +299,74 @@ def build_retrieval_query(messages: list[dict]) -> str:
     if type_terms:
         query_parts.append(" ".join(type_terms))
 
+    # Domain phrase packs — improve embedding recall without extra API calls
+    lower_ctx = full_user_context.lower()
+    domain_terms: list[str] = []
+    if re.search(r"\bexcel\b", lower_ctx):
+        domain_terms.append("MS Excel New Microsoft Excel 365 knowledge skills simulation")
+    if re.search(r"\bword\b", lower_ctx):
+        domain_terms.append("MS Word New Microsoft Word 365 Essentials office")
+    if re.search(r"\bleadership\b|cxo|director", lower_ctx):
+        domain_terms.append(
+            "OPQ32r OPQ Universal Competency OPQ Leadership Report personality selection benchmark"
+        )
+    if re.search(r"\bhealthcare\b|hipaa|medical|patient records|clinical", lower_ctx):
+        domain_terms.append(
+            "HIPAA Medical Terminology Dependability Safety Instrument DSI Spanish bilingual"
+        )
+    if domain_terms:
+        query_parts.append(" ".join(domain_terms))
+
     query = " ".join(query_parts)
 
     logger.debug(f"Built retrieval query: '{query[:100]}...'")
     return query
+
+
+def detect_domain_pin_names(full_user_context: str) -> list[str]:
+    """
+    Canonical catalog names to pin into retrieval when domain is clear.
+    Keeps expected SKUs in context without an extra LLM call.
+    """
+    lower = full_user_context.lower()
+    pins: list[str] = []
+
+    if re.search(r"\bleadership\b|cxo|director-level|senior leadership", lower):
+        if re.search(r"\bselection\b|benchmark", lower):
+            pins.extend([
+                "Occupational Personality Questionnaire OPQ32r",
+                "OPQ Universal Competency Report 2.0",
+                "OPQ Leadership Report",
+            ])
+
+    if re.search(r"\bexcel\b", lower):
+        pins.append("MS Excel (New)")
+        if re.search(r"\bword\b", lower):
+            pins.append("MS Word (New)")
+        if re.search(r"\bsimulation\b|capabilities\b", lower):
+            pins.extend([
+                "Microsoft Excel 365 (New)",
+                "Microsoft Word 365 (New)",
+            ])
+        if re.search(r"\badmin\b|assistant|screen", lower):
+            pins.append("Occupational Personality Questionnaire OPQ32r")
+
+    if re.search(r"\bhealthcare\b|hipaa|patient records|medical terminology", lower):
+        pins.extend([
+            "HIPAA (Security)",
+            "Medical Terminology (New)",
+            "Dependability and Safety Instrument (DSI)",
+            "Microsoft Word 365 - Essentials (New)",
+            "Occupational Personality Questionnaire OPQ32r",
+        ])
+
+    seen: set[str] = set()
+    ordered: list[str] = []
+    for name in pins:
+        if name not in seen:
+            seen.add(name)
+            ordered.append(name)
+    return ordered
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -528,7 +592,9 @@ Re-display the FULL updated list in recommendations after any change.
 2) RECOMMEND — enough context (role + need, or a job description):
   - Example: pasted JD text, "hiring a senior Java developer for selection" → recommend.
   - Return 1–10 items with name, catalog URL, and test_type code exactly as in context.
-  - Default-include OPQ32r for role-based hiring when appropriate; offer to remove it.
+  - For role-based hiring, default-include OPQ32r when appropriate; offer to remove it.
+  - For leadership selection (CXO/director + benchmark), prefer OPQ32r + OPQ Universal
+    Competency Report 2.0 + OPQ Leadership Report when they appear in catalog context.
   - Test type codes: A=Ability, B=Biodata/SJT, C=Competencies, D=Development/360,
     K=Knowledge & Skills, P=Personality, S=Simulations (comma-separated if multiple).
 
@@ -549,7 +615,17 @@ MISSING CATALOG MATCH:
   - State the gap; offer closest catalog alternatives; do not invent products.
 
 END OF CONVERSATION:
-  - end_of_conversation true ONLY when the user explicitly confirms the final shortlist."""
+  - end_of_conversation true ONLY when the user explicitly confirms the final shortlist.
+
+CATALOG DISAMBIGUATION (sibling products — pick names exactly as in context):
+  EXCEL / WORD office screening:
+    - Quick knowledge screens: MS Excel (New), MS Word (New).
+    - Simulation / hands-on layer: Microsoft Excel 365 (New), Microsoft Word 365 (New).
+    - Microsoft Word 365 - Essentials (New) is appropriate for healthcare admin / written office work.
+    - Full admin batteries often combine 365 (New) sims, MS Excel/Word (New), and OPQ32r.
+  LEADERSHIP SELECTION (CXO / director + benchmark):
+    - Prefer OPQ32r (instrument) + OPQ Universal Competency Report 2.0 + OPQ Leadership Report
+      when all three appear in catalog context — one OPQ administration, multiple reports."""
 
     # ── Turn-specific instruction ─────────────────────────────────────────────
     # This section changes based on where we are in the conversation
@@ -662,7 +738,7 @@ def call_llm(
         response_format={"type": "json_object"},
         temperature=0.2,   # Low temperature = more consistent, less creative
                            # We want reliable structured output, not variety
-        max_tokens=1000,   # Enough for a reply + 10 recommendations
+        max_completion_tokens=2000,   # Enough for a reply + 10 recommendations
     )
 
     raw_text = response.choices[0].message.content
@@ -725,15 +801,22 @@ def get_agent_response(
 
     # ── Step 3: Build FAISS retrieval query ───────────────────────────────────
     query = build_retrieval_query(messages)
+    user_context = " ".join(
+        msg.get("content", "") for msg in messages if msg.get("role") == "user"
+    )
 
     # ── Step 4: Recover prior shortlist and retrieve catalog context ───────────
     previous_shortlist = extract_previous_shortlist(messages)
     prior_urls = [item["url"] for item in previous_shortlist if item.get("url")]
 
+    domain_pin_urls = retriever.resolve_names_to_urls(detect_domain_pin_names(user_context))
+    merged_prior_urls = list(dict.fromkeys(prior_urls + domain_pin_urls))
+
     retrieved_assessments = retriever.merge_search(
         query,
-        prior_urls=prior_urls,
+        prior_urls=merged_prior_urls,
         top_k=RETRIEVAL_TOP_K,
+        rerank_context=user_context,
     )
     catalog_context = retriever.format_for_prompt(retrieved_assessments)
 

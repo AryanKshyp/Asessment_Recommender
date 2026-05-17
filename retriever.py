@@ -30,6 +30,7 @@ Design notes:
 import json
 import logging
 import os
+import re
 
 import faiss          # Vector similarity search library
 import numpy as np    # Used to handle the arrays of numbers (vectors)
@@ -38,11 +39,81 @@ from openai import OpenAI
 logger = logging.getLogger(__name__)
 
 # How many results to retrieve from FAISS before passing to the LLM.
-TOP_K = 20
+TOP_K = 22
+
+# Extra FAISS candidates to fetch before keyword rerank (trimmed back to top_k).
+RERANK_EXTRA_FETCH = 4
 
 # text-embedding-3-small: faster and cheaper; sufficient for this catalog size.
 EMBEDDING_MODEL = "text-embedding-3-small"
 EMBEDDING_DIMENSION = 1536
+
+
+def _keyword_boost(name_lower: str, context_lower: str) -> float:
+    """
+    Lightweight rerank bonuses from conversation keywords (no API calls).
+    Boost-only — Essentials variants are never penalized (needed for healthcare traces).
+    """
+    boost = 0.0
+
+    if re.search(r"\bleadership\b|cxo|director|executive|senior leadership", context_lower):
+        if re.search(r"\bselection\b|benchmark|hiring", context_lower):
+            if "opq32r" in name_lower or "occupational personality questionnaire" in name_lower:
+                boost += 1.5
+            if "opq universal competency" in name_lower:
+                boost += 1.5
+            if "opq leadership report" in name_lower and "manager" not in name_lower:
+                boost += 1.5
+
+    if re.search(r"\bexcel\b", context_lower):
+        if "ms excel (new)" in name_lower:
+            boost += 1.2
+        if "microsoft excel 365 (new)" in name_lower:
+            boost += 1.0
+
+    if re.search(r"\bword\b", context_lower):
+        if "ms word (new)" in name_lower:
+            boost += 1.2
+        if "microsoft word 365 (new)" in name_lower:
+            boost += 1.0
+        if re.search(r"\bhealthcare\b|hipaa|medical|patient|bilingual|clinical", context_lower):
+            if "microsoft word 365 - essentials" in name_lower:
+                boost += 1.2
+
+    if re.search(r"\bsimulation\b|capabilities\b", context_lower):
+        if "microsoft excel 365 (new)" in name_lower or "microsoft word 365 (new)" in name_lower:
+            boost += 1.0
+
+    if re.search(r"\bhealthcare\b|hipaa|patient records|medical terminology|clinical", context_lower):
+        if "hipaa" in name_lower:
+            boost += 1.5
+        if "medical terminology" in name_lower:
+            boost += 1.5
+        if "dependability and safety" in name_lower:
+            boost += 1.2
+        if "microsoft word 365 - essentials" in name_lower:
+            boost += 1.2
+
+    if re.search(r"\bhiring\b|\bselection\b", context_lower):
+        if "opq32r" in name_lower or (
+            "occupational personality questionnaire" in name_lower and "report" not in name_lower
+        ):
+            boost += 0.6
+
+    return boost
+
+
+def rerank_by_keywords(results: list[dict], context: str) -> list[dict]:
+    """Re-order FAISS hits using keyword boosts (cheap; runs on ≤30 items)."""
+    if not results or not context.strip():
+        return results
+    context_lower = context.lower()
+    scored = [
+        (float(item.get("_similarity_score", 0)) + _keyword_boost(item.get("name", "").lower(), context_lower), item)
+        for item in results
+    ]
+    scored.sort(key=lambda pair: pair[0], reverse=True)
+    return [item for _, item in scored]
 
 
 def load_catalog(catalog_path: str) -> list[dict]:
@@ -378,7 +449,8 @@ class SHLRetriever:
         query: str,
         prior_urls: list[str],
         top_k: int = TOP_K,
-        prior_slots: int = 6,
+        prior_slots: int = 8,
+        rerank_context: str = "",
     ) -> list[dict]:
         """
         FAISS search merged with pinned items from the current shortlist.
@@ -399,15 +471,27 @@ class SHLRetriever:
 
         remaining = max(top_k - len(merged), 0)
         if remaining > 0 and query.strip():
-            for item in self.search(query, top_k=remaining + len(seen_urls)):
-                url = item.get("link", "")
-                if url and url not in seen_urls:
-                    merged.append(item)
-                    seen_urls.add(url)
-                if len(merged) >= top_k:
-                    break
+            fetch_k = min(remaining + RERANK_EXTRA_FETCH, len(self.catalog))
+            candidates = [
+                item for item in self.search(query, top_k=fetch_k)
+                if item.get("link") and item.get("link") not in seen_urls
+            ]
+            if rerank_context:
+                candidates = rerank_by_keywords(candidates, rerank_context)
+            for item in candidates[:remaining]:
+                merged.append(item)
+                seen_urls.add(item["link"])
 
         return merged[:top_k]
+
+    def resolve_names_to_urls(self, names: list[str]) -> list[str]:
+        """Resolve canonical catalog names to URLs for domain pinning."""
+        urls: list[str] = []
+        for name in names:
+            item = self.get_assessment_by_name(name)
+            if item and item.get("link"):
+                urls.append(item["link"])
+        return urls
 
     def get_assessment_by_name(self, name: str) -> dict | None:
         """

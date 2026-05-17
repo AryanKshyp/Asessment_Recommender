@@ -1,0 +1,17 @@
+{
+  "trace_id": "C5",
+  "persona": "Extracted Persona",
+  "facts": {},
+  "user_messages": [
+    "As part of our restructuring and annual talent audit, we need to re-skill our Sales organization. What solutions do you recommend?",
+    "What’s the difference between OPQ and OPQ MQ Sales Report?",
+    "Clear. We’ll use OPQ for everyone and add MQ only where we want motivators in the Sales Report; keeping the five solutions as our audit stack."
+  ],
+  "expected_assessments": [
+    "Global Skills Assessment",
+    "Global Skills Development Report",
+    "Occupational Personality Questionnaire OPQ32r",
+    "OPQ MQ Sales Report",
+    "Sales Transformation 2.0 - Individual Contributor"
+  ]
+}

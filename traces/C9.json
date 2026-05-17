@@ -1,0 +1,23 @@
+{
+  "trace_id": "C9",
+  "persona": "Extracted Persona",
+  "facts": {},
+  "user_messages": [
+    "Here's the JD for an engineer we need to fill. Can you recommend an assessment battery?\n\n\"Senior Full-Stack Engineer — 5+ years across Core Java, Spring, REST API design, Angular, SQL/relational databases, AWS deployment, and Docker. Will own end-to-end microservice delivery, contribute to architectural decisions, and mentor mid-level engineers. Strong CI/CD and cloud-native experience required.\"",
+    "Backend-leaning. Day-one priorities are Core Java and Spring; SQL is constant. Angular is occasional — they'd review frontend PRs but not own features.",
+    "Senior IC. They lead design on their own services but don't manage other engineers directly.",
+    "Add AWS and Docker. Drop REST — the API design signal will already come through in Spring and the live interview.",
+    "On Java — they'd be working on existing services, not greenfield. Is the Advanced level the right pick?",
+    "Do we really need Verify G+ on top of all the technical tests? Feels redundant.",
+    "Keep Verify G+. Locking it in."
+  ],
+  "expected_assessments": [
+    "Core Java (Advanced Level) (New)",
+    "Spring (New)",
+    "SQL (New)",
+    "Amazon Web Services (AWS) Development (New)",
+    "Docker (New)",
+    "SHL Verify Interactive G+",
+    "Occupational Personality Questionnaire OPQ32r"
+  ]
+}

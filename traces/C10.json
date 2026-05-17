@@ -1,0 +1,14 @@
+{
+  "trace_id": "C10",
+  "persona": "Extracted Persona",
+  "facts": {},
+  "user_messages": [
+    "We run a graduate management trainee scheme. We need a full battery — cognitive, personality, and situational judgement. All recent graduates.",
+    "But can you remove the OPQ32r and replace it with something shorter? Candidates complain it takes too long.",
+    "Drop the OPQ. Final list: Verify G+ and Graduate Scenarios."
+  ],
+  "expected_assessments": [
+    "SHL Verify Interactive G+",
+    "Graduate Scenarios"
+  ]
+}

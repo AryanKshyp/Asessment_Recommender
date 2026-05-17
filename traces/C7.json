@@ -1,0 +1,18 @@
+{
+  "trace_id": "C7",
+  "persona": "Extracted Persona",
+  "facts": {},
+  "user_messages": [
+    "We're hiring bilingual healthcare admin staff in South Texas — they handle patient records and need to be assessed in Spanish. HIPAA compliance is critical. What assessments work?",
+    "They're functionally bilingual — English fluent for written work. Go with the hybrid.",
+    "Are we legally required under HIPAA to test all staff who touch patient records? And does this SHL test satisfy that requirement?",
+    "Understood. Keep the shortlist as-is."
+  ],
+  "expected_assessments": [
+    "HIPAA (Security)",
+    "Medical Terminology (New)",
+    "Microsoft Word 365 - Essentials (New)",
+    "Dependability and Safety Instrument (DSI)",
+    "Occupational Personality Questionnaire OPQ32r"
+  ]
+}

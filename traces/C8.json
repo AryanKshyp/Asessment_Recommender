@@ -1,0 +1,17 @@
+{
+  "trace_id": "C8",
+  "persona": "Extracted Persona",
+  "facts": {},
+  "user_messages": [
+    "I need to quickly screen admin assistants for Excel and Word daily.",
+    "In that case, I am OK with adding a simulation - we want to capture the capabilties.",
+    "That's good."
+  ],
+  "expected_assessments": [
+    "Microsoft Excel 365 (New)",
+    "Microsoft Word 365 (New)",
+    "MS Excel (New)",
+    "MS Word (New)",
+    "Occupational Personality Questionnaire OPQ32r"
+  ]
+}

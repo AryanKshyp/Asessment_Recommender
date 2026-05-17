@@ -1,0 +1,16 @@
+{
+  "trace_id": "C1",
+  "persona": "Extracted Persona",
+  "facts": {},
+  "user_messages": [
+    "We need a solution for senior leadership.",
+    "The pool consists of CXOs, director-level postions; people with more than 15 years of experience.",
+    "Selection — comparing candidates against a leadership benchmark.",
+    "Perfect, that's what we need."
+  ],
+  "expected_assessments": [
+    "Occupational Personality Questionnaire OPQ32r",
+    "OPQ Universal Competency Report 2.0",
+    "OPQ Leadership Report"
+  ]
+}

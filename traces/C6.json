@@ -1,0 +1,14 @@
+{
+  "trace_id": "C6",
+  "persona": "Extracted Persona",
+  "facts": {},
+  "user_messages": [
+    "We're hiring plant operators for a chemical facility. Safety is absolute top priority — reliability, procedure compliance, never cutting corners. What do you recommend?",
+    "What's the difference between the DSI and the Safety & Dependability 8.0?",
+    "We're industrial. The 8.0 bundle is the right fit. Confirmed."
+  ],
+  "expected_assessments": [
+    "Manufac. & Indust. - Safety & Dependability 8.0",
+    "Workplace Health and Safety (New)"
+  ]
+}

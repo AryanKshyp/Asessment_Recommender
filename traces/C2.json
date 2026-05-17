@@ -1,0 +1,17 @@
+{
+  "trace_id": "C2",
+  "persona": "Extracted Persona",
+  "facts": {},
+  "user_messages": [
+    "I'm hiring a senior Rust engineer for high-performance networking infrastructure. What assessments should I use?",
+    "Yes, go ahead. Should I also add a cognitive test for this level?",
+    "That works. Thanks."
+  ],
+  "expected_assessments": [
+    "Smart Interview Live Coding",
+    "Linux Programming (General)",
+    "Networking and Implementation (New)",
+    "SHL Verify Interactive G+",
+    "Occupational Personality Questionnaire OPQ32r"
+  ]
+}

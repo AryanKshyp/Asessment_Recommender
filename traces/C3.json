@@ -1,0 +1,18 @@
+{
+  "trace_id": "C3",
+  "persona": "Extracted Persona",
+  "facts": {},
+  "user_messages": [
+    "We're screening 500 entry-level contact centre agents. Inbound calls, customer service focus. What should we use?",
+    "English.",
+    "US.",
+    "Is the Contact Center Call Simulation different from the Customer Service Phone Simulation?",
+    "Perfect — new simulation for volume, old solution for finalists. Confirmed."
+  ],
+  "expected_assessments": [
+    "SVAR Spoken English (US) (New)",
+    "Contact Center Call Simulation (New)",
+    "Entry Level Customer Serv - Retail & Contact Center",
+    "Customer Service Phone Simulation"
+  ]
+}
